@@ -75,7 +75,7 @@ fetch(`${baseURL}?sheet=updates`)
                 const formattedDate = formatDate(update.date); // Format the date
                 updatesDiv.innerHTML += `
                     <div class="update-item">
-                        <strong>${update.name || 'No Name'}</strong> on <em>${formattedDate}</em><br>
+                        <strong>${update.name || 'No Name'}</strong> on <em>${formattedDate} at ${update.time || 'No Time'}</em><br>
                         <p>${update.description || 'No description provided.'}</p>
                         <hr class="update-separator"/>
                     </div>`;
@@ -105,5 +105,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         });
+    });
+});
+
+// New Parallax Scroll Effect for Carousel Images
+document.addEventListener('scroll', function() {
+    const slides = document.querySelectorAll('.slide img'); // Select all image elements
+
+    const scrollY = window.pageYOffset;
+
+    slides.forEach(img => {
+        // We only want the active slide's image to move
+        if (img.closest('.slide').classList.contains('active')) {
+            // Adjust the multiplier (e.g., -0.05) for desired speed and direction
+            // Negative value makes it move up as you scroll down
+            img.style.transform = `translateY(${scrollY * -0.05}px)`;
+        } else {
+            // Reset non-active slides when they are not visible
+            img.style.transform = `translateY(0px)`;
+        }
     });
 });
