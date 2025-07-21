@@ -1,4 +1,4 @@
-const baseURL = "https://script.google.com/macros/s/AKfycbzT8--5PRUhCa4v_K9sMy6r6gcfEV5fUcEceWxfZbCouNu6HHHJXcX_z-WQcs_jSy2v/exec";
+const baseURL = "https://script.google.com/macros/s/AKfycbwhzMEw97HBYQfmJg7LmcBikzpinSCdTDBRJxFWX7r3OSaBLAvFHHZdqlZz67LB5iHNXg/exec";
 
 // Hide splash screen after page loads
 window.addEventListener("load", () => {
