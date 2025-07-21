@@ -117,6 +117,23 @@ nav .logo {
     overflow: hidden;
 }
 
+/* Main title over carousel images */
+.main-carousel-title {
+    position: absolute;
+    top: 15vh; /* Position slightly down from the top */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 520; /* Above buttons and slides */
+    color: #fff;
+    font-size: 5vw; /* Responsive font size */
+    font-weight: bold;
+    text-align: center;
+    width: 90%; /* Ensure it spans across */
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 191, 255, 0.5); /* Stronger shadows for visibility */
+    pointer-events: none; /* Allows clicks on elements underneath */
+}
+
+
 .slides {
     display: flex;
     width: 100%;
@@ -169,7 +186,7 @@ nav .logo {
     position: absolute;
     top: 50%; /* Vertically center */
     left: 50%; /* Horizontally center */
-    transform: translate(-50%, -50%); /* Adjust to true center */
+    transform: translate(-50%, -50%); /* Base transform for centering */
     display: flex;
     gap: 30px; /* Space between buttons */
     z-index: 510; /* Above slides, below fixed navbar */
@@ -184,13 +201,16 @@ nav .logo {
     font-weight: bold;
     font-size: 1.5rem; /* Larger font size */
     border-radius: 10px; /* More rounded corners */
-    transition: all 0.3s ease; /* Unified transition for all properties */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, transform 0.3s ease; /* Explicitly list properties */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    /* Keep the base transform for centering */
+    transform: translate(-50%, -50%); /* Re-apply base transform to avoid shifting */
 }
 
 .carousel-button:hover {
     background-color: rgba(0, 102, 163, 0.9);
-    transform: translate(-50%, -50%) scale(1.05); /* Slight scale on hover */
+    /* Only scale, don't change translate values */
+    transform: translate(-50%, -50%) scale(1.05); /* Only scale on hover, keep centered */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 191, 255, 0.7); /* Added glow */
     border: 2px solid #00bfff; /* Subtle border on hover */
 }
@@ -317,6 +337,9 @@ nav .logo {
     .splash-title {
         font-size: 3.5rem;
     }
+    .main-carousel-title {
+        font-size: 4.5vw;
+    }
     .caption {
         font-size: 5vw;
     }
@@ -349,6 +372,10 @@ nav .logo {
     nav .logo-link {
         margin: 0 auto;
     }
+    .main-carousel-title {
+        font-size: 7vw; /* Adjust for smaller screens */
+        top: 10vh; /* Adjust position */
+    }
     .carousel-buttons {
         flex-direction: column;
         gap: 20px;
@@ -360,10 +387,11 @@ nav .logo {
         padding: 15px 20px;
         font-size: 1.1rem;
         text-align: center;
-        transform: translate(-50%, 0); /* Re-center after flex-direction change */
+        /* Re-center after flex-direction change, ensure no unintended movement */
+        transform: translate(-50%, 0);
     }
     .carousel-button:hover {
-        transform: translate(-50%, 0) scale(1.05);
+        transform: translate(-50%, 0) scale(1.05); /* Only scale on hover */
     }
 
     .caption {
@@ -402,6 +430,10 @@ nav .logo {
     }
     .splash-logo {
         width: 150px;
+    }
+    .main-carousel-title {
+        font-size: 8vw;
+        top: 8vh;
     }
     .carousel-button {
         font-size: 1rem;
