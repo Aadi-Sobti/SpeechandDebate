@@ -20,10 +20,6 @@
         <a href="https://www.peaktopeak.org" target="_blank" class="logo-link">
             <img src="images/logo.png" alt="Logo" class="logo">
         </a>
-        <div class="nav-buttons">
-            <a href="about.html" class="nav-button">About</a>
-            <a href="#information" class="nav-button">Information</a>
-        </div>
     </nav>
 
     <section class="slider">
@@ -40,19 +36,23 @@
                 <img src="images/slide3.jpg" alt="Slide 3">
                 <div class="caption">Join us for tournaments & training</div>
             </div>
+            </div>
+        <div class="carousel-buttons">
+            <a href="about.html" class="carousel-button">About Us</a>
+            <a href="#information" class="carousel-button">Information</a>
         </div>
     </section>
 
-    <section id="information">
-        <h2 class="centered-text">Useful Links</h2>
-        <div id="links" class="centered-text">Loading links...</div>
+    <section id="information" class="section-padded centered-content">
+        <h2 class="section-title">Useful Links</h2>
+        <div id="links">Loading links...</div>
 
-        <h2 class="centered-text">Latest Updates</h2>
-        <div id="updates" class="centered-text">Loading updates...</div>
+        <h2 class="section-title">Latest Updates</h2>
+        <div id="updates">Loading updates...</div>
     </section>
 
     <footer class="contact-us">
-        <h2 class="centered-text">Contact Us</h2>
+        <h2 class="section-title">Contact Us</h2>
         <div class="contact-links">
             <a href="https://www.instagram.com/your_instagram" target="_blank" aria-label="Instagram">
                 <i class="fab fa-instagram fa-2x"></i>
@@ -71,13 +71,13 @@
             const splash = document.getElementById('splash-screen');
             setTimeout(() => {
                 splash.classList.add('hide');
-            }, 2000); // Adjust time as needed
+            }, 1000); // Shorter duration for quicker disappearance
         });
 
         // Carousel functionality
         let slideIndex = 0;
         const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        const totalSlides = slides.length; // Dynamically gets the total number of slides
 
         function showSlides() {
             slides.forEach(slide => slide.classList.remove('active'));
