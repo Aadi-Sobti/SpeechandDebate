@@ -1,14 +1,11 @@
 const baseURL = "https://script.google.com/macros/s/AKfycbwhzMEw97HBYQfmJg7LmcBikzpinSCdTDBRJxFWX7r3OSaBLAvFHHZdqlZz67LB5iHNXg/exec";
 
-// Hide splash screen after page loads (this part is in your index.html's script block, but keeping this function here for full context of your JS file)
+// This splash screen logic is already effectively handled in index.html's inline script.
+// Keeping it here for context of this file's purpose, but it's not strictly necessary.
 window.addEventListener("load", () => {
-    // The splash screen hiding logic is already in index.html's script block,
-    // so this specific part is redundant if you keep that inline script.
-    // If you remove the inline script, make sure #splash-screen is initially visible in CSS
-    // and then use this:
     // const splash = document.getElementById("splash-screen");
     // if (splash) {
-    //     splash.classList.add('hide'); // Uses the CSS transition
+    //     splash.classList.add('hide');
     // }
 });
 
@@ -16,7 +13,6 @@ window.addEventListener("load", () => {
 function formatDate(isoString) {
     try {
         const date = new Date(isoString);
-        // Check if the date is valid
         if (isNaN(date.getTime())) {
             return "Invalid Date";
         }
@@ -43,7 +39,6 @@ fetch(`${baseURL}?sheet=links`)
         linksDiv.innerHTML = ""; // Clear "Loading links..."
         if (data && data.length > 0) {
             data.forEach(link => {
-                // Ensure 'name' and 'link' properties exist
                 const linkName = link.name || 'Unnamed Link'; // Assuming a 'name' property from your sheet
                 const linkUrl = link.link || '#'; // Assuming a 'link' property from your sheet
 
@@ -93,3 +88,22 @@ fetch(`${baseURL}?sheet=updates`)
         console.error("Error fetching updates:", error);
         document.getElementById("updates").innerText = "Failed to load updates. Please try again later.";
     });
+
+// Smooth scroll for "Information" button
+document.addEventListener('DOMContentLoaded', () => {
+    const scrollLinks = document.querySelectorAll('.scroll-link');
+
+    scrollLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent default anchor jump
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
