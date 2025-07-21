@@ -4,7 +4,7 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #0d0d0d;
     color: #f0f0f0;
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* Ensure smooth scrolling for anchors */
     overflow-x: hidden; /* Prevent horizontal scroll due to vw */
 }
 
@@ -106,7 +106,8 @@ nav .logo-link {
 
 nav .logo {
     height: 60px; /* Larger logo */
-    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); /* Subtle shadow for visibility */
+    /* Added white shadow for visibility */
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
 }
 
 /* --- Carousel --- */
@@ -186,12 +187,11 @@ nav .logo {
     position: absolute;
     top: 50%; /* Vertically center */
     left: 50%; /* Horizontally center */
-    transform: translate(-50%, -50%); /* Base transform for centering */
+    transform: translate(-50%, -50%); /* Base transform for centering the container */
     display: flex;
     gap: 30px; /* Space between buttons */
     z-index: 510; /* Above slides, below fixed navbar */
-    justify-content: center; /* Center buttons within their flex container */
-    width: 100%; /* Ensure flex container takes full width for proper centering */
+    /* No need for justify-content: center here, as transform handles centering */
 }
 
 .carousel-button {
@@ -205,7 +205,8 @@ nav .logo {
     border-radius: 10px; /* More rounded corners */
     transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, transform 0.3s ease; /* Explicitly list properties */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    /* No translate here; it's handled by the parent .carousel-buttons */
+    /* Individual buttons within the flex container no longer need translate(-50%, -50%) */
+    /* Their position is relative to their flex container, which is already centered */
 }
 
 .carousel-button:hover {
@@ -227,7 +228,7 @@ nav .logo {
     max-width: 900px; /* Constrain width for better readability */
     margin: 0 auto; /* Center the content blocks */
     padding: 20px; /* Add some padding */
-    /* text-align: center; REMOVED to allow left alignment for update/link details */
+    /* Removed text-align: center; to allow left alignment for update/link details */
 }
 
 /* Styling for individual link items */
@@ -453,6 +454,10 @@ nav .logo {
         flex-direction: column;
         gap: 20px;
         top: 60%; /* Adjust position to avoid overlapping caption as much */
+        /* For mobile, flex-direction column makes the transform: translate(-50%, -50%) problematic.
+           We apply translate(-50%, 0) to ensure horizontal centering and let default flow handle vertical. */
+        transform: translate(-50%, 0); /* Center horizontally when stacked */
+        width: auto; /* Let content define width in column layout */
     }
     .carousel-button {
         width: 80vw; /* Make buttons wider on mobile */
@@ -460,11 +465,11 @@ nav .logo {
         padding: 15px 20px;
         font-size: 1.1rem;
         text-align: center;
-        /* Re-center after flex-direction change, ensure no unintended movement */
-        transform: translate(-50%, 0); /* This was the key fix for mobile responsiveness */
+        /* Remove individual button transforms here because parent handles positioning for column layout */
+        transform: none;
     }
     .carousel-button:hover {
-        transform: translate(-50%, 0) scale(1.05); /* Only scale on hover */
+        transform: scale(1.05); /* Only scale on hover */
     }
 
     .caption {
@@ -495,6 +500,21 @@ nav .logo {
         padding: 10px 20px;
         font-size: 1rem;
     }
+
+    /* Adjustments for links/updates on mobile */
+    .info-link-item a {
+        font-size: 1.3rem;
+    }
+    .update-item {
+        font-size: 1rem;
+        padding: 15px;
+    }
+    .update-item strong {
+        font-size: 1.2rem;
+    }
+    .update-item em {
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -521,5 +541,20 @@ nav .logo {
     }
     .contact-links a {
         font-size: 2.5rem;
+    }
+
+    /* Further adjustments for links/updates on very small screens */
+    .info-link-item a {
+        font-size: 1.1rem;
+    }
+    .update-item {
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+    .update-item strong {
+        font-size: 1.1rem;
+    }
+    .update-item em {
+        font-size: 0.85rem;
     }
 }
