@@ -75,7 +75,7 @@ fetch(`${baseURL}?sheet=updates`)
                 const formattedDate = formatDate(update.date); // Format the date
                 updatesDiv.innerHTML += `
                     <div class="update-item">
-                        <strong>${update.name || 'No Name'}</strong> on <em>${formattedDate} at ${update.time || 'No Time'}</em><br>
+                        <strong>${update.name || 'No Name'}</strong> on <em>${formattedDate}</em><br>
                         <p>${update.description || 'No description provided.'}</p>
                         <hr class="update-separator"/>
                     </div>`;
