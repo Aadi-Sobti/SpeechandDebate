@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+}
+
+#splash {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  transition: opacity 1s ease;
+}
+
+#splash img {
+  width: 200px;
+}
+
+header {
+  background: #20232a;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+nav a {
+  color: #61dafb;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.carousel {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  width: 300%;
+  animation: slide 12s infinite;
+}
+
+.slides img {
+  width: 100%;
+  height: auto;
+}
+
+@keyframes slide {
+  0% {transform: translateX(0);}
+  33% {transform: translateX(-100%);}
+  66% {transform: translateX(-200%);}
+  100% {transform: translateX(0);}
+}
+
+.section {
+  padding: 40px;
+  text-align: center;
+}
+
+#updates, #links {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
