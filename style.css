@@ -116,6 +116,12 @@ nav .logo {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    /* Add for parallax */
+    background-attachment: fixed; /* Essential for parallax background behavior */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+    background-size: cover; /* Cover the entire element */
+    transition: background-position 0.1s linear; /* Smooth transition for the effect */
 }
 
 /* Main title over carousel images */
@@ -164,6 +170,9 @@ nav .logo {
     height: 100%;
     object-fit: cover; /* Ensures image fills the area without distorting */
     filter: brightness(60%);
+    /* Add this for a subtle parallax on the image itself */
+    transform: translateY(0); /* Initial state */
+    transition: transform 0.1s linear; /* Smooth transition for the effect */
 }
 
 .caption {
