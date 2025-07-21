@@ -9,6 +9,7 @@
 </head>
 <body>
 
+    <!-- Splash screen -->
     <div id="splash-screen">
         <div class="splash-content">
             <img src="images/mascot.png" alt="Mascot" class="splash-logo" />
@@ -16,13 +17,18 @@
         </div>
     </div>
 
+    <!-- Navbar -->
     <nav>
         <a href="https://www.peaktopeak.org" target="_blank" class="logo-link">
             <img src="images/logo.png" alt="Logo" class="logo">
         </a>
     </nav>
 
+    <!-- Carousel -->
     <section class="slider">
+        <!-- Main Title for the Carousel -->
+        <h1 class="main-carousel-title">Peak to Peak Speech and Debate Team</h1>
+
         <div class="slides">
             <div class="slide active">
                 <img src="images/Slide 1.png" alt="Slide 1">
@@ -161,12 +167,14 @@
                 <div class="caption">Peak to Peak pride</div>
             </div>
         </div>
+        <!-- Buttons overlaid on the carousel -->
         <div class="carousel-buttons">
             <a href="about.html" class="carousel-button">About Us</a>
             <a href="#information" class="carousel-button">Information</a>
         </div>
     </section>
 
+    <!-- Information Section -->
     <section id="information" class="section-padded centered-content">
         <h2 class="section-title">Useful Links</h2>
         <div id="links">Loading links...</div>
@@ -175,6 +183,7 @@
         <div id="updates">Loading updates...</div>
     </section>
 
+    <!-- Contact Us Section -->
     <footer class="contact-us">
         <h2 class="section-title">Contact Us</h2>
         <div class="contact-links">
@@ -187,8 +196,10 @@
         </div>
     </footer>
 
+    <!-- External JavaScript (if you have one, keep it) -->
     <script src="script.js"></script>
 
+    <!-- Simple JS for the carousel and splash screen -->
     <script>
         // Splash screen functionality
         window.addEventListener('load', () => {
