@@ -1,44 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Speech & Debate Team</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Peak to Peak Speech and Debate</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Mascot Splash Screen -->
-  <div id="splash">
-    <img src="images/mascot.png" alt="Mascot">
+  <!-- Splash screen -->
+  <div id="splash-screen">
+    <img src="images/mascot.png" alt="Mascot" class="splash-logo">
+    <h1>Peak to Peak Speech and Debate</h1>
   </div>
 
-  <!-- Navigation Bar -->
-  <header>
-    <h1>Speech & Debate Team</h1>
-    <nav>
+  <!-- Navbar -->
+  <nav>
+    <a href="https://www.peaktopeak.org" target="_blank">
+      <img src="images/logo.png" alt="Logo" class="logo">
+    </a>
+    <div class="nav-links">
       <a href="about.html">About</a>
       <a href="#info">Information</a>
-    </nav>
-  </header>
+    </div>
+  </nav>
 
-  <!-- Image Carousel -->
-  <section class="carousel">
+  <!-- Image slider -->
+  <section class="slider">
     <div class="slides">
-      <img src="images/slide1.jpg" alt="Slide 1">
-      <img src="images/slide2.jpg" alt="Slide 2">
-      <img src="images/slide3.jpg" alt="Slide 3">
+      <div class="slide active">
+        <img src="images/slide1.jpg" alt="Slide 1" />
+        <div class="caption">Welcome to our team</div>
+      </div>
+      <div class="slide">
+        <img src="images/slide2.jpg" alt="Slide 2" />
+        <div class="caption">We debate. We speak. We lead.</div>
+      </div>
+      <div class="slide">
+        <img src="images/slide3.jpg" alt="Slide 3" />
+        <div class="caption">Join us for tournaments & training</div>
+      </div>
     </div>
   </section>
 
-  <!-- Updates and Links Section -->
-  <section id="info" class="section">
-    <h2>Latest Updates</h2>
-    <div id="updates">Loading updates...</div>
+  <!-- Info Section -->
+  <section id="info">
+    <h2>Links</h2>
+    <div id="links-container"></div>
 
-    <h2>Useful Links</h2>
-    <div id="links">Loading links...</div>
+    <h2>Updates</h2>
+    <div id="updates-container"></div>
   </section>
 
-  <script src="script.js"></script>
+  <script>
+    // Splash screen
+    window.addEventListener("load", () => {
+      const splash = document.getElementById("splash-screen");
+      setTimeout(() => splash.style.display = "none", 2000);
+    });
+
+    // Slider logic
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    setInterval(() => {
+      slides[slideIndex].classList.remove('active');
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add('active');
+    }, 5000);
+
+    // Fetch data from Google Apps Script
+    const apiURL = "https://script.google.com/macros/s/AKfycbzT8--5PRUhCa4v_K9sMy6r6gcfEV5fUcEceWxfZbCouNu6HHHJXcX_z-WQcs_jSy2v/exec";
+
+    fetch(apiURL)
+      .then(res => res.json())
+      .then(data => {
+        const linksContainer = document.getElementById('links-container');
+        const updatesContainer = document.getElementById('updates-container');
+
+        const links = data.links || [];
+        const updates = data.updates || [];
+
+        links.forEach(link => {
+          const item = document.createElement('div');
+          item.className = 'card';
+          item.innerHTML = `<a href="${link.link}" target="_blank">${link.description}</a>`;
+          linksContainer.appendChild(item);
+        });
+
+        updates.forEach(update => {
+          const item = document.createElement('div');
+          item.className = 'card';
+          item.innerHTML = `
+            <strong>${update.date} ${update.time}</strong><br/>
+            <em>${update.name}</em>: ${update.description}
+          `;
+          updatesContainer.appendChild(item);
+        });
+      });
+  </script>
 </body>
 </html>
