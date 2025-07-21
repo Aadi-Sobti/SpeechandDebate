@@ -190,6 +190,8 @@ nav .logo {
     display: flex;
     gap: 30px; /* Space between buttons */
     z-index: 510; /* Above slides, below fixed navbar */
+    justify-content: center; /* Center buttons within their flex container */
+    width: 100%; /* Ensure flex container takes full width for proper centering */
 }
 
 .carousel-button {
@@ -203,14 +205,12 @@ nav .logo {
     border-radius: 10px; /* More rounded corners */
     transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, transform 0.3s ease; /* Explicitly list properties */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    /* Keep the base transform for centering */
-    transform: translate(-50%, -50%); /* Re-apply base transform to avoid shifting */
+    /* No translate here; it's handled by the parent .carousel-buttons */
 }
 
 .carousel-button:hover {
     background-color: rgba(0, 102, 163, 0.9);
-    /* Only scale, don't change translate values */
-    transform: translate(-50%, -50%) scale(1.05); /* Only scale on hover, keep centered */
+    transform: scale(1.05); /* Only scale on hover, no unintended movement */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 191, 255, 0.7); /* Added glow */
     border: 2px solid #00bfff; /* Subtle border on hover */
 }
@@ -221,13 +221,86 @@ nav .logo {
     background: #111;
 }
 
+/* Base styling for the links and updates sections, ensuring they take up max width */
 #information #links,
 #information #updates {
     max-width: 900px; /* Constrain width for better readability */
     margin: 0 auto; /* Center the content blocks */
-    text-align: center; /* Ensure text within these divs is centered */
     padding: 20px; /* Add some padding */
+    /* text-align: center; REMOVED to allow left alignment for update/link details */
 }
+
+/* Styling for individual link items */
+.info-link-item {
+    margin-bottom: 15px; /* Space between each link */
+    text-align: left; /* Align link text to the left */
+}
+
+.info-link-item a {
+    text-decoration: none; /* Remove underline from link */
+    color: #00bfff; /* Link color */
+    font-size: 1.5rem; /* Bigger font size for links */
+    display: block; /* Make the whole area clickable */
+    padding: 8px 0; /* Vertical padding around link text */
+    transition: color 0.3s ease;
+}
+
+.info-link-item a:hover {
+    color: #0080ff; /* Slightly darker blue on hover */
+}
+
+/* Line separator for links */
+.link-separator {
+    border: none;
+    border-top: 1px dashed rgba(255, 255, 255, 0.3); /* Dashed line for separation */
+    margin: 15px 0; /* Space above and below line */
+    width: 100%; /* Make the line span full width */
+}
+
+
+/* Styling for individual update items */
+.update-item {
+    background-color: #1a1a1a; /* Dark background for the box */
+    border: 2px solid transparent; /* Initial transparent border */
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px; /* Space between update boxes */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+    text-align: left; /* Align update text to the left within its box */
+    font-size: 1.15rem; /* Larger text for updates */
+    line-height: 1.6;
+}
+
+.update-item:hover {
+    border: 2px solid #00bfff; /* Blue border on hover */
+    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.4); /* Enhanced shadow on hover */
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+.update-item strong {
+    color: #00bfff; /* Color for the name/heading */
+    font-size: 1.3rem; /* Make the name slightly larger */
+}
+
+.update-item em {
+    color: #ccc; /* Slightly lighter color for date/time */
+    font-size: 1rem; /* Date/time slightly smaller than name */
+}
+
+.update-item p {
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: #f0f0f0;
+}
+
+/* Line separator for updates */
+.update-separator {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Thin, subtle line */
+    margin: 20px 0 0; /* Margin above the line, none below */
+}
+
 
 /* --- About Page Specific Styles --- */
 .about-section {
@@ -388,7 +461,7 @@ nav .logo {
         font-size: 1.1rem;
         text-align: center;
         /* Re-center after flex-direction change, ensure no unintended movement */
-        transform: translate(-50%, 0);
+        transform: translate(-50%, 0); /* This was the key fix for mobile responsiveness */
     }
     .carousel-button:hover {
         transform: translate(-50%, 0) scale(1.05); /* Only scale on hover */
