@@ -53,21 +53,24 @@ body {
 .splash-content {
     text-align: center;
     padding: 20px;
-    /* Bounce animation */
-    animation: bounce 0.8s ease-out;
+    /* Zoom in/out animation */
+    animation: zoomInOut 0.8s ease-out; /* Adjusted animation duration */
 }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
+@keyframes zoomInOut {
+    0% {
+        transform: scale(0.8); /* Starts slightly smaller */
+        opacity: 0;
     }
-    40% {
-        transform: translateY(-30px);
+    50% {
+        transform: scale(1.05); /* Zooms slightly larger than original */
+        opacity: 1;
     }
-    60% {
-        transform: translateY(-15px);
+    100% {
+        transform: scale(1); /* Returns to original size */
     }
 }
+
 
 .splash-logo {
     width: 280px; /* Larger mascot */
@@ -156,6 +159,9 @@ nav .logo {
     width: 80%; /* Constrain caption width for better readability */
     padding: 0 10vw; /* Add horizontal padding to center within width */
     box-sizing: border-box;
+    /* Ensure caption is not cut off by top */
+    top: auto; /* Reset top property */
+    bottom: 5vh; /* Explicitly set bottom positioning */
 }
 
 /* Carousel Buttons (About and Information) */
@@ -178,14 +184,15 @@ nav .logo {
     font-weight: bold;
     font-size: 1.5rem; /* Larger font size */
     border-radius: 10px; /* More rounded corners */
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease; /* Unified transition for all properties */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-button:hover {
     background-color: rgba(0, 102, 163, 0.9);
     transform: translate(-50%, -50%) scale(1.05); /* Slight scale on hover */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 191, 255, 0.7); /* Added glow */
+    border: 2px solid #00bfff; /* Subtle border on hover */
 }
 
 
