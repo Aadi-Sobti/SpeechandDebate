@@ -8,8 +8,22 @@ body {
     overflow-x: hidden; /* Prevent horizontal scroll due to vw */
 }
 
-/* Centered Text Utility */
-.centered-text {
+/* Utility Classes for Sleekness and Centering */
+.section-padded {
+    padding: 80px 20px; /* More vertical padding for sections */
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text within items */
+}
+
+.section-title {
+    color: #00bfff;
+    font-size: 3rem; /* Larger, more impactful titles */
+    margin-bottom: 40px; /* More space below titles */
     text-align: center;
 }
 
@@ -26,28 +40,43 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: opacity 1s ease-out, visibility 1s ease-out;
+    /* Quicker fade out */
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 }
 
 #splash-screen.hide {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Allows clicks on elements underneath */
+    pointer-events: none;
 }
 
 .splash-content {
     text-align: center;
     padding: 20px;
+    /* Bounce animation */
+    animation: bounce 0.8s ease-out;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
 }
 
 .splash-logo {
-    width: 250px; /* Larger mascot */
+    width: 280px; /* Larger mascot */
     max-width: 90vw;
-    margin-bottom: 30px; /* Increased margin */
+    margin-bottom: 40px; /* Increased margin */
 }
 
 .splash-title {
-    font-size: 3.5rem; /* Larger title */
+    font-size: 4rem; /* Even larger title */
     color: #00bfff;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
     font-weight: 700;
@@ -55,80 +84,53 @@ body {
 
 /* --- Navbar --- */
 nav {
-    background: #111;
+    background: transparent; /* Make navbar transparent */
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* Logo stays left */
     align-items: center;
-    padding: 10px 30px;
-    position: sticky;
+    padding: 15px 30px;
+    position: fixed; /* Fixed position over content */
     top: 0;
+    left: 0;
+    width: 100vw;
     z-index: 500;
-    width: 100vw; /* Ensure it spans full width */
-    box-sizing: border-box; /* Include padding in width */
+    box-sizing: border-box;
 }
 
 nav .logo-link {
-    display: block; /* Ensures the logo is the only thing on the left */
+    display: block;
 }
 
 nav .logo {
-    height: 50px; /* Slightly larger logo */
-}
-
-.nav-buttons {
-    display: flex;
-    gap: 20px; /* Space between buttons */
-}
-
-.nav-button {
-    color: #00bfff;
-    background-color: #004d7a; /* Button background */
-    padding: 15px 30px; /* Larger buttons */
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.2rem; /* Larger font size */
-    border-radius: 8px; /* Rounded corners */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: flex; /* For icon alignment */
-    align-items: center;
-    gap: 8px; /* Space between icon and text */
-}
-
-.nav-button:hover {
-    background-color: #0066a3;
-    transform: translateY(-2px);
-}
-
-.back-button i {
-    margin-right: 5px; /* Space between icon and text for back button */
+    height: 60px; /* Larger logo */
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); /* Subtle shadow for visibility */
 }
 
 /* --- Carousel --- */
 .slider {
     position: relative;
     width: 100vw;
-    height: 100vh; /* Takes up entire screen height */
+    height: 100vh;
     overflow: hidden;
 }
 
 .slides {
     display: flex;
-    width: 100%; /* Each slide is 100% of the slider width */
-    height: 100%; /* Each slide is 100% of the slider height */
-    transition: none; /* Remove transition from slides container if not needed for animation */
+    width: 100%;
+    height: 100%;
 }
 
 .slide {
-    flex: 0 0 100%; /* Each slide takes up 100% of the flex container */
-    position: absolute; /* Position absolute for overlapping slides */
+    flex: 0 0 100%;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    display: flex; /* To center caption if needed */
-    justify-content: center; /* Center caption horizontally */
+    display: flex;
+    justify-content: center;
     align-items: flex-end; /* Align caption to the bottom */
 }
 
@@ -139,193 +141,273 @@ nav .logo {
 .slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures image covers the area without distortion */
+    object-fit: cover; /* Ensures image fills the area without distorting */
     filter: brightness(60%);
 }
 
 .caption {
-    position: absolute; /* Relative to the slide */
-    bottom: 5vh; /* Responsive bottom positioning */
+    position: absolute;
+    bottom: 5vh;
     color: #fff;
-    font-size: 3.5vw; /* Responsive font size */
+    font-size: 4vw; /* Larger and responsive font size */
     font-weight: bold;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-    text-align: center; /* Center the text */
-    width: 100%; /* Ensure caption spans full width for centering */
+    text-align: center;
+    width: 80%; /* Constrain caption width for better readability */
+    padding: 0 10vw; /* Add horizontal padding to center within width */
+    box-sizing: border-box;
 }
 
-/* --- Information Section (formerly Info Section) --- */
+/* Carousel Buttons (About and Information) */
+.carousel-buttons {
+    position: absolute;
+    top: 50%; /* Vertically center */
+    left: 50%; /* Horizontally center */
+    transform: translate(-50%, -50%); /* Adjust to true center */
+    display: flex;
+    gap: 30px; /* Space between buttons */
+    z-index: 510; /* Above slides, below fixed navbar */
+}
+
+.carousel-button {
+    color: #fff; /* White text for contrast */
+    background-color: rgba(0, 77, 122, 0.8); /* Semi-transparent blue */
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    padding: 20px 40px; /* Larger buttons */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem; /* Larger font size */
+    border-radius: 10px; /* More rounded corners */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 102, 163, 0.9);
+    transform: translate(-50%, -50%) scale(1.05); /* Slight scale on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+
+/* --- Information Section --- */
 #information {
-    padding: 50px;
     background: #111;
-    text-align: center; /* Centering content */
 }
 
-#information h2 {
-    color: #00bfff;
-    font-size: 2.5rem; /* Slightly larger heading */
-    margin-bottom: 25px;
-}
-
-.card { /* If you plan to use cards for links/updates */
-    background: #1a1a1a;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border-left: 4px solid #00bfff;
-    text-align: left; /* Text inside card can be left-aligned */
+#information #links,
+#information #updates {
+    max-width: 900px; /* Constrain width for better readability */
+    margin: 0 auto; /* Center the content blocks */
+    text-align: center; /* Ensure text within these divs is centered */
+    padding: 20px; /* Add some padding */
 }
 
 /* --- About Page Specific Styles --- */
 .about-section {
-    padding: 50px 20px;
     background: #0d0d0d;
-}
-
-.about-section h1 {
-    color: #00bfff;
-    font-size: 3rem;
-    margin-bottom: 40px;
 }
 
 .about-content {
     display: flex;
-    flex-direction: row; /* Default desktop layout */
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    gap: 50px; /* Space between image collage and text */
+    align-items: flex-start; /* Align items to the top for better text flow */
+    gap: 70px; /* More space between image collage and text */
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px; /* Horizontal padding for content */
 }
 
 .image-collage {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    gap: 15px; /* Space between images */
-    flex: 1; /* Allows collage to take up available space */
-    max-width: 50%; /* Control width on larger screens */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; /* More space between images */
+    flex: 1;
+    max-width: 45%; /* Control width on larger screens */
+    padding-top: 20px; /* Push images down a bit */
 }
 
 .image-collage img {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
-    object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.2);
+    height: 250px; /* Fixed height for consistency in collage */
+    border-radius: 12px; /* More rounded corners */
+    object-fit: cover; /* Ensures image covers the area without distorting */
+    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .image-collage img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 20px rgba(0, 191, 255, 0.4);
+    transform: scale(1.05); /* Slightly more pronounced hover */
+    box-shadow: 0 8px 25px rgba(0, 191, 255, 0.5);
 }
 
 .about-text {
-    flex: 1; /* Allows text to take up available space */
-    max-width: 50%; /* Control width on larger screens */
-    line-height: 1.8;
-    font-size: 1.15rem;
-    padding-right: 20px; /* Add some padding if next to images */
+    flex: 1;
+    max-width: 55%; /* Allow text to take up more space */
+    line-height: 1.9; /* Increased line height for readability */
+    font-size: 1.25rem; /* Larger font size */
+    text-align: center; /* Center the text */
 }
 
 .about-text p {
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* More space between paragraphs */
+}
+
+/* About Page Navbar specific back button */
+.nav-buttons {
+    margin-left: auto; /* Push back button to the right */
+    display: flex; /* For alignment */
+}
+
+.nav-button {
+    color: #00bfff;
+    background-color: #004d7a;
+    padding: 12px 25px; /* Slightly smaller than carousel buttons */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 30px; /* Space from the right edge */
+}
+
+.nav-button:hover {
+    background-color: #0066a3;
+    transform: translateY(-2px);
 }
 
 /* --- Contact Us Section (Footer) --- */
 .contact-us {
     background: #1a1a1a;
-    padding: 30px 20px;
+    padding: 40px 20px; /* More padding */
     text-align: center;
     border-top: 2px solid #001d3d;
-}
-
-.contact-us h2 {
-    color: #00bfff;
-    font-size: 2rem;
-    margin-bottom: 20px;
 }
 
 .contact-links {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin-top: 15px;
+    gap: 40px; /* More space between icons */
+    margin-top: 25px;
 }
 
 .contact-links a {
     color: #f0f0f0;
-    font-size: 2.5rem; /* Larger icons */
+    font-size: 3rem; /* Larger icons */
     transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .contact-links a:hover {
     color: #00bfff;
-    transform: translateY(-3px);
+    transform: translateY(-5px); /* More pronounced lift on hover */
 }
 
 /* --- Responsive Design --- */
+@media (max-width: 1024px) {
+    .splash-title {
+        font-size: 3.5rem;
+    }
+    .caption {
+        font-size: 5vw;
+    }
+    .carousel-button {
+        padding: 15px 30px;
+        font-size: 1.3rem;
+    }
+    .about-content {
+        gap: 40px;
+    }
+    .image-collage {
+        max-width: 48%;
+    }
+    .about-text {
+        max-width: 52%;
+        font-size: 1.1rem;
+    }
+}
+
 @media (max-width: 768px) {
     .splash-title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
-
+    .splash-logo {
+        width: 200px;
+    }
     nav {
+        justify-content: center; /* Center logo on smaller screens */
+    }
+    nav .logo-link {
+        margin: 0 auto;
+    }
+    .carousel-buttons {
         flex-direction: column;
+        gap: 20px;
+        top: 60%; /* Adjust position to avoid overlapping caption as much */
+    }
+    .carousel-button {
+        width: 80vw; /* Make buttons wider on mobile */
+        max-width: 300px;
         padding: 15px 20px;
-    }
-
-    nav .logo {
-        margin-bottom: 15px;
-    }
-
-    .nav-buttons {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%; /* Make buttons full width */
-    }
-
-    .nav-button {
-        width: 100%;
+        font-size: 1.1rem;
         text-align: center;
-        padding: 12px 20px; /* Adjust button size for mobile */
-        font-size: 1rem;
+        transform: translate(-50%, 0); /* Re-center after flex-direction change */
+    }
+    .carousel-button:hover {
+        transform: translate(-50%, 0) scale(1.05);
     }
 
     .caption {
-        font-size: 6vw; /* Adjust caption size for smaller screens */
-        bottom: 3vh;
+        font-size: 6.5vw;
+        bottom: 8vh; /* Move caption up slightly */
+    }
+
+    .section-title {
+        font-size: 2.5rem;
     }
 
     .about-content {
-        flex-direction: column; /* Stack image and text vertically on mobile */
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
     }
-
     .image-collage,
     .about-text {
-        max-width: 90%; /* Adjust width for mobile */
-        padding-right: 0;
+        max-width: 90%;
     }
-
-    .image-collage {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* More flexible grid for mobile */
+    .image-collage img {
+        height: 200px; /* Adjust height for mobile collage */
+    }
+    .about-text {
+        font-size: 1rem;
+    }
+    .nav-button {
+        padding: 10px 20px;
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 480px) {
-    .splash-logo {
-        width: 180px;
-    }
-
     .splash-title {
-        font-size: 2rem;
-    }
-
-    .contact-links a {
-        font-size: 2rem;
-    }
-
-    .about-section h1 {
         font-size: 2.2rem;
+    }
+    .splash-logo {
+        width: 150px;
+    }
+    .carousel-button {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+    .caption {
+        font-size: 8vw;
+        bottom: 10vh;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .contact-links a {
+        font-size: 2.5rem;
     }
 }
