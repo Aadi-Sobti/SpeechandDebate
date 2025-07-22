@@ -4,54 +4,38 @@ window.addEventListener("load", () => {
     // Splash screen logic (kept for context, but handled inline in index.html)
 });
 
-// Function to format date and time from ISO string or direct time string
-function formatDateTime(dateIsoString, timeString) {
+// Function to format date and time
+function formatDateTime(dateIsoString, timeIsoString) {
     let formattedDate = "Invalid Date";
     let formattedTime = "Invalid Time";
 
-    // Format the date part
+    // Format the date part (e.g., 1/1/2024)
     try {
-        const date = new Date(dateIsoString);
-        if (!isNaN(date.getTime())) {
-            const month = date.getMonth() + 1; // getMonth() is 0-indexed
-            const day = date.getDate();
-            const year = date.getFullYear();
+        const dateObj = new Date(dateIsoString);
+        if (!isNaN(dateObj.getTime())) {
+            const month = dateObj.getMonth() + 1; // getMonth() is 0-indexed
+            const day = dateObj.getDate();
+            const year = dateObj.getFullYear();
             formattedDate = `${month}/${day}/${year}`;
         }
     } catch (e) {
         console.error("Error formatting date:", e);
     }
 
-    // Format the time part (assuming it comes as "HH:MM:SS.sssZ" or similar)
-    // If your Google Sheet 'time' column directly contains "3:00 PM",
-    // then no special parsing is needed for the timeString.
-    // However, if it's part of an ISO string like "1899-12-30T22:00:00.000Z",
-    // we need to parse that.
+    // Format the time part (e.g., 3:00 PM) from the ISO string
     try {
-        // Option 1: If timeString is already "3:00 PM" from your sheet
-        if (timeString && timeString.match(/^(1[0-2]|0?[1-9]):([0-5][0-9]) (AM|PM)$/i)) {
-            formattedTime = timeString;
-        } else if (timeString) {
-            // Option 2: If timeString is an ISO format like "1899-12-30T22:00:00.000Z"
-            const timeDate = new Date(timeString);
-            if (!isNaN(timeDate.getTime())) {
-                let hours = timeDate.getHours();
-                const minutes = timeDate.getMinutes();
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; // the hour '0' should be '12'
-                const minString = minutes < 10 ? '0' + minutes : minutes;
-                formattedTime = `${hours}:${minString} ${ampm}`;
-            } else {
-                // Fallback for unexpected formats
-                formattedTime = timeString; // Use original string if parsing fails
-            }
-        } else {
-            formattedTime = "No Time";
+        const timeObj = new Date(timeIsoString); // Create a Date object from the time ISO string
+        if (!isNaN(timeObj.getTime())) {
+            // Use toLocaleTimeString for robust timezone-aware formatting
+            // 'en-US' for AM/PM, hour12: true for 12-hour format
+            formattedTime = timeObj.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
         }
     } catch (e) {
         console.error("Error formatting time:", e);
-        formattedTime = "Time Error";
     }
 
     return { formattedDate, formattedTime };
@@ -104,7 +88,7 @@ fetch(`${baseURL}?sheet=updates`)
         updatesDiv.innerHTML = "";
         if (data && data.length > 0) {
             data.forEach(update => {
-                // Call the new formatDateTime function
+                // Pass both date and time strings to the formatter
                 const { formattedDate, formattedTime } = formatDateTime(update.date, update.time);
                 updatesDiv.innerHTML += `
                     <div class="update-item">
